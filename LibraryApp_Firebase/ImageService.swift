@@ -21,7 +21,7 @@ class ImageService {
     let storage = FIRStorage.storage()
     
     func bookCover(for book: Book, completion: @escaping (_: UIImage) -> ()) {
-        let bookCoverRef = storage.reference(withPath: "images/\(book.isbn).jpg")
+        let bookCoverRef = storage.reference(withPath: "images/bookCovers/\(book.isbn).jpg")
         bookCoverRef.data(withMaxSize: eightMegabytes) { data, error in
             if let data = data {
                 let image = UIImage(data: data) ?? #imageLiteral(resourceName: "bookPlaceholder")
