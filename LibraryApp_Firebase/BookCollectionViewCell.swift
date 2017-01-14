@@ -10,4 +10,10 @@ import UIKit
 
 class BookCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var bookCoverImageView: UIImageView!
+    
+    func configure(bookCover: UIImage) {
+        bookCoverImageView.image = bookCover
+    }
+
 }

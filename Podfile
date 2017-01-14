@@ -7,6 +7,8 @@ target 'LibraryApp_Firebase' do
   # Pods for LibraryApp_Firebase
     pod 'Firebase/Core'
     pod 'Firebase/Database'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Auth'
 
   target 'LibraryApp_FirebaseTests' do
     inherit! :search_paths
