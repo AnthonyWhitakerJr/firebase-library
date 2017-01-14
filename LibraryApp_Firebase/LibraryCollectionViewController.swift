@@ -19,6 +19,7 @@ class LibraryCollectionViewController: UICollectionViewController {
         
         dataService.books() { books in
             self.books = books
+            self.collectionView?.reloadData()
         }
     }
 

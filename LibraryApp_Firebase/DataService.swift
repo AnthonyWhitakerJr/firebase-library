@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 
 class DataService {
     
@@ -35,14 +36,14 @@ class DataService {
         let books: FIRDatabaseReference
         let users: FIRDatabaseReference
         
-//        var currentUser: FIRDatabaseReference? {
-//            let uid = FIRAuth.auth()?.currentUser?.uid
-//            if let uid = uid {
-//                return users.child(uid)
-//            }
-//            
-//            return nil
-//        }
+        var currentUser: FIRDatabaseReference? {
+            let uid = FIRAuth.auth()?.currentUser?.uid
+            if let uid = uid {
+                return users.child(uid)
+            }
+            
+            return nil
+        }
         
         fileprivate init(){
             database = FIRDatabase.database().reference()
