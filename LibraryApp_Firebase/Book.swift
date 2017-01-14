@@ -12,17 +12,20 @@ class Book {
     
     let isbn: String
     let title: String
+    let author: String
     let pages: Array<Page>
     
-    init(isbn: String, title: String, pages: Array<Page>) {
+    init(isbn: String, title: String, author: String, pages: Array<Page>) {
         self.isbn = isbn
         self.title = title
+        self.author = author
         self.pages = pages
     }
     
     convenience init?(isbn: String, data: Dictionary<String, Any>) {
         var pages = Array<Page>()
         let title = data["title"] as? String
+        let author = data["author"] as? String
         
         if let pageDictionary = data["pages"] as? Dictionary<Int, Dictionary<String, String>> {
             for (pageNumber, contents) in pageDictionary {
@@ -34,8 +37,8 @@ class Book {
         }
 
         
-        if let title = title {
-            self.init(isbn: isbn, title: title, pages: pages)
+        if let title = title, let author = author {
+            self.init(isbn: isbn, title: title, author: author, pages: pages)
         } else {
             return nil
         }
@@ -44,6 +47,7 @@ class Book {
     func asDictionary() -> Dictionary<String, Any> {
         var result: Dictionary<String, Any>  = [
             "title": title,
+            "author": author
         ]
         
         var pageDictionary = Dictionary<Int, Dictionary<String, String>>()
