@@ -12,8 +12,14 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookCoverImageView: UIImageView!
     
-    func configure(bookCover: UIImage) {
-        bookCoverImageView.image = bookCover
+    var book: Book!
+    var imageService = ImageService.sharedInstance
+    
+    func configure(book: Book) {
+        self.book = book
+        imageService.bookCover(for: book) { bookCover in
+            self.bookCoverImageView.image = bookCover
+        }
     }
 
 }

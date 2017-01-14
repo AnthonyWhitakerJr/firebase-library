@@ -12,7 +12,6 @@ class LibraryCollectionViewController: UICollectionViewController {
     
     var books: Array<Book> = Array<Book>()
     
-    var imageService = ImageService.sharedInstance
     var dataService = DataService.sharedInstance
 
     override func viewDidLoad() {
@@ -38,8 +37,7 @@ class LibraryCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookCollectionViewCell", for: indexPath) as? BookCollectionViewCell {
-            let bookCover = imageService.bookCover(for: books[indexPath.row])
-            cell.configure(bookCover: bookCover)
+            cell.configure(book: books[indexPath.row])
             return cell
         }
         
