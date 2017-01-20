@@ -18,31 +18,28 @@ import UIKit
  */
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
-    var pageData: [String] = []
-
-    override init() {
-        super.init()
-        // Create the data model.
-        let dateFormatter = DateFormatter()
-        pageData = dateFormatter.monthSymbols
+    var book: Book
+    
+    init(book: Book) {
+        self.book = book
     }
 
     /// Return the data view controller for the given index.
     func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {
-        if (self.pageData.count == 0) || (index >= self.pageData.count) {
+        if (self.book.pages.count == 0) || (index >= self.book.pages.count) {
             return nil
         }
 
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
-        dataViewController.dataObject = self.pageData[index]
+        dataViewController.page = self.book.pages[index]
         return dataViewController
     }
 
     /// Return the index of the given data view controller.
     func indexOfViewController(_ viewController: DataViewController) -> Int {
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-        return pageData.index(of: viewController.dataObject) ?? NSNotFound
+        return book.pages.index(of: viewController.page) ?? NSNotFound
     }
 
     // MARK: - Page View Controller Data Source
@@ -64,7 +61,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
         
         index += 1
-        if index == self.pageData.count {
+        if index == self.book.pages.count {
             return nil
         }
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)

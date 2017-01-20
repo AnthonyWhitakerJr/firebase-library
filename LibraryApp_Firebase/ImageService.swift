@@ -27,10 +27,17 @@ class ImageService {
                 let image = UIImage(data: data) ?? #imageLiteral(resourceName: "bookPlaceholder")
                 completion(image)
             } else {
-                print("\(error)")
                 completion(#imageLiteral(resourceName: "bookPlaceholder"))
             }
         }
-
+    }
+    
+    func image(for page: Page, completion: @escaping (_: UIImage) -> ()) {
+        let pageImageRef = storage.reference(withPath: "images/\(page.imageName)")
+        pageImageRef.data(withMaxSize: eightMegabytes) { data, error in
+            if let data = data, let image = UIImage(data: data) {
+                completion(image)
+            }
+        }
     }
 }

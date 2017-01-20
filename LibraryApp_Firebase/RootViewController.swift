@@ -11,6 +11,8 @@ import UIKit
 class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     var pageViewController: UIPageViewController?
+    
+    var book: Book!
 
     var _modelController: ModelController? = nil
     
@@ -18,7 +20,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     var modelController: ModelController {
         // In more complex implementations, the model controller may be passed to the view controller.
         if _modelController == nil {
-            _modelController = ModelController()
+            _modelController = ModelController(book: book)
         }
         return _modelController!
     }

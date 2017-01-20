@@ -27,13 +27,24 @@ class Book {
         let title = data["title"] as? String
         let author = data["author"] as? String
         
-        if let pageDictionary = data["pages"] as? Dictionary<Int, Dictionary<String, String>> {
-            for (pageNumber, contents) in pageDictionary {
-                if let page = Page(pageNumber: pageNumber, data: contents) {
-                    pages.append(page)
+        if let pageArray = data["pages"] as? Array<Any> {
+            for (pageNumber, contents) in pageArray.enumerated() {
+                if let contents = contents as? Dictionary<String, String> {
+                    if let page = Page(pageNumber: pageNumber, data: contents) {
+                        pages.append(page)
+                    }
                 }
             }
             pages.sort()
+        } else {
+            let foo = data["pages"]
+            let arr = foo is Array<Any>
+            print("is array \(arr)")
+            let dic = foo is Array<Dictionary<String, Any>>
+            print("is array of dictionary \(dic)")
+            print("XXXXXX: \(foo)")
+            
+            
         }
 
         
@@ -50,13 +61,13 @@ class Book {
             "author": author
         ]
         
-        var pageDictionary = Dictionary<Int, Dictionary<String, String>>()
+        var pageArray = Array<Dictionary<String, String>>()
         
         for page in pages {
-            pageDictionary[page.number] = page.asDictionary()
+            pageArray.append(page.asDictionary())
         }
         
-        result["pages"] = pageDictionary
+        result["pages"] = pageArray
         
         return result
     }

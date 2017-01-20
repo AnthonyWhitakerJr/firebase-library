@@ -26,8 +26,19 @@ class LibraryCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "openBook" {
+            guard let  controller = segue.destination as? RootViewController else {
+                print("improper controller for this segue")
+                return
+            }
+            
+            guard let book = sender as? Book else {
+                print("Improper sender for this segue")
+                return
+            }
+            
+            controller.book = book
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -60,6 +71,7 @@ class LibraryCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("\(books[indexPath.row].title) selected.")
+        performSegue(withIdentifier: "openBook", sender: books[indexPath.row])
     }
 
     /*
