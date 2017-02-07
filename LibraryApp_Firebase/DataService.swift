@@ -15,6 +15,10 @@ class DataService {
     static let sharedInstance = DataService()
     private static let ref = Ref()
     
+    init() {
+        FIRDatabase.database().persistenceEnabled = true
+    }
+    
     func books(completion: @escaping (_: Array<Book>) -> ()) {
         DataService.ref.books.observe(.value, with: { snapshot in
             var books = Array<Book>()
